@@ -310,7 +310,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &330585545
 Camera:
   m_ObjectHideFlags: 0
@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 767521803}
   - component: {fileID: 767521802}
   - component: {fileID: 767521806}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Demon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ Transform:
   m_GameObject: {fileID: 767521801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6222203, y: 1.31, z: -5.54}
+  m_LocalPosition: {x: -3.6222203, y: 1.23, z: -5.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1018,6 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   demon: {fileID: 767521801}
+  player: {fileID: 1651939075}
   aggro: 0
   demonhider: {fileID: 767521803}
 --- !u!1 &832575517
@@ -1254,7 +1255,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1

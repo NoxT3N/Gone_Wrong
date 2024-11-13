@@ -4,39 +4,27 @@ using UnityEngine.UIElements;
 
 public class DemonScript : MonoBehaviour
 {
+    [Header("Demon Settings")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private int aggro;
 
-    public GameObject demon;
-    public GameObject player;
-    public int aggro;
-
-    public MeshRenderer demonhider;
-    private bool isVisible = false;
-
-    
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        setVisible(isVisible);
+        //setVisible(isVisible);
         StartCoroutine(Teleport());
     }
 
-    // Update is called every frame
-    void Update()
-    {
-
-    }
 
     //Hides demon + disables collision
-    void toggleVisible()
-    {
-        isVisible = !isVisible;
-        demonhider.enabled = isVisible;
-    }
-    void setVisible(bool visible)
-    {
-        demonhider.enabled = visible;
-    }
+    //void toggleVisible()
+    //{
+    //    isVisible = !isVisible;
+    //    demonhider.enabled = isVisible;
+    //}
+    //void setVisible(bool visible)
+    //{
+    //    demonhider.enabled = visible;
+    //}
 
     //Teleport and activate demon
     IEnumerator Teleport()
@@ -53,11 +41,11 @@ public class DemonScript : MonoBehaviour
             newPos.y = playerPos.y;
             newPos.x = playerPos.x + Random.Range(-20.0f, 20.0f);
 
-            demon.transform.position = newPos;
-            toggleVisible();
+            this.transform.position = newPos;
+            //toggleVisible();
             Debug.Log("Demon appeared!");
             yield return new WaitForSecondsRealtime(5);
-            toggleVisible();
+            //toggleVisible();
             Debug.Log("Demon is gone.");
         }
     }

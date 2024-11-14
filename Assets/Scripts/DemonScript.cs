@@ -11,7 +11,9 @@ public class DemonScript : MonoBehaviour
     [Header("Demon Settings")]
     [SerializeField] private GameObject player;
     [SerializeField] private int aggro;
+    [HideInInspector] public bool isPlayerLooking = false;
     private NavMeshAgent agent;
+    
 
     void Start()
     {
@@ -19,17 +21,13 @@ public class DemonScript : MonoBehaviour
         StartCoroutine(Teleport());        
     }
 
-
-    //Hides demon + disables collision
-    //void toggleVisible()
-    //{
-    //    isVisible = !isVisible;
-    //    demonhider.enabled = isVisible;
-    //}
-    //void setVisible(bool visible)
-    //{
-    //    demonhider.enabled = visible;
-    //}
+    void Update()
+    {
+        if (isPlayerLooking)
+        {
+            attack();
+        }
+    }
 
     //Teleport and activate demon
     IEnumerator Teleport()
@@ -66,5 +64,9 @@ public class DemonScript : MonoBehaviour
             }
             
         }
+    }
+    void attack()
+    {
+        Debug.Log("Player is looking at me");
     }
 }

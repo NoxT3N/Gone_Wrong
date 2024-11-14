@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -10,27 +11,35 @@ public class PlayerScript : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private float baseSpeed = 6f;
     [SerializeField] private float sprintMultiplier = 1.5f;
+    [SerializeField] private Camera POV;
+    [SerializeField] private float lookDistance = 50f;
 
     bool isSprinting = false;
 
     // Awake is called when the script instance is being loaded
-    void Awake(){
+    void Awake()
+    {
         player = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
         handleGravity();
         handleMovement();
+        detectDemon();
     }
 
-    private void handleGravity(){
-        if (player.isGrounded && velocity.y < 0) {
+    private void handleGravity()
+    {
+        if (player.isGrounded && velocity.y < 0)
+        {
             velocity.y = -2f;
         }
         velocity.y += gravity * Time.deltaTime;
     }
-    private void handleMovement(){
+    private void handleMovement()
+    {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         isSprinting = Input.GetKey(KeyCode.LeftShift);
@@ -40,5 +49,23 @@ public class PlayerScript : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         player.Move(move * currentSpeed * Time.deltaTime);
         player.Move(velocity * Time.deltaTime);
+    }
+    private void detectDemon()
+    {
+        RaycastHit hit;
+        Vector3 rayOrigin = POV.transform.position;
+        Vector3 rayDirection = POV.transform.forward;
+
+        Debug.DrawRay(rayOrigin, rayDirection * lookDistance, Color.red);
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, lookDistance))
+        {
+            DemonScript demon = hit.collider.GetComponent<DemonScript>();
+            GameManager.Instance.setIsPlayerLooking(demon != null);
+        }
+        else
+        {
+            GameManager.Instance.setIsPlayerLooking(false);
+        }
     }
 }

@@ -25,7 +25,7 @@ public class DemonScript : MonoBehaviour
     {
         if (isPlayerLooking)
         {
-            attack();
+            Attack();
         }
     }
 
@@ -65,7 +65,7 @@ public class DemonScript : MonoBehaviour
             
         }
     }
-    void attack()
+    void Attack()
     {
         Debug.Log("Player is looking at me");
     }

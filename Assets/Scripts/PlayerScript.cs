@@ -14,7 +14,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Camera POV;
     [SerializeField] private float lookDistance = 50f;
 
-    bool isSprinting = false;
+    private bool isSprinting = false;
+   
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -25,12 +26,12 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handleGravity();
-        handleMovement();
-        detectDemon();
+        HandleGravity();
+        HandleMovement();
+        PerformRaycast();
     }
 
-    private void handleGravity()
+    private void HandleGravity()
     {
         if (player.isGrounded && velocity.y < 0)
         {
@@ -38,7 +39,7 @@ public class PlayerScript : MonoBehaviour
         }
         velocity.y += gravity * Time.deltaTime;
     }
-    private void handleMovement()
+    private void HandleMovement()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -50,7 +51,24 @@ public class PlayerScript : MonoBehaviour
         player.Move(move * currentSpeed * Time.deltaTime);
         player.Move(velocity * Time.deltaTime);
     }
-    private void detectDemon()
+    private void DetectDemon(RaycastHit hit)
+    {
+            DemonScript demon = hit.collider.GetComponent<DemonScript>();
+            GameManager.Instance.SetIsPlayerLooking(demon != null);
+    }
+    private void HandleItemInteractions(RaycastHit hit)
+    {
+        Item item = hit.collider.GetComponent<Item>();
+        if (item != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                item.Interact();
+            }
+        }
+    }
+
+    private void PerformRaycast()
     {
         RaycastHit hit;
         Vector3 rayOrigin = POV.transform.position;
@@ -60,12 +78,12 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, lookDistance))
         {
-            DemonScript demon = hit.collider.GetComponent<DemonScript>();
-            GameManager.Instance.setIsPlayerLooking(demon != null);
+            DetectDemon(hit);
+            HandleItemInteractions(hit);
         }
         else
         {
-            GameManager.Instance.setIsPlayerLooking(false);
+            GameManager.Instance.SetIsPlayerLooking(false);
         }
     }
 }

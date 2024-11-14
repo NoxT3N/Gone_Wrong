@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void setIsPlayerLooking(bool b)
+    public void SetIsPlayerLooking(bool b)
     {
         demon.isPlayerLooking = b;
     }

@@ -7,17 +7,15 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
-        outline = gameObject.GetComponent<Outline>();
-        if (outline != null)
+        outline = GetComponent<Outline>();
+        if (outline == null)
         {
             outline = gameObject.AddComponent<Outline>();
-            outline.enabled = false;
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = Color.yellow;
+            outline.OutlineWidth = 10f;
         }
-        else
-        {
-            Debug.Log("Outline Component Null");
-        }
-        
+        outline.enabled = false;
     }
 
     public void ToggleOutline(bool toggle)

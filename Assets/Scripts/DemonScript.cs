@@ -38,30 +38,42 @@ public class DemonScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(2);
 
             Vector3 playerPos = player.transform.position;
+            float playerBackDir = player.transform.localEulerAngles.y+180;
 
-            int xSide = UnityEngine.Random.Range(0, 2);
-            int zSide = UnityEngine.Random.Range(0, 2);
+            //Generate angle from behind player
+            int rSide = UnityEngine.Random.Range(0, 2);
+            float newAngle = UnityEngine.Random.Range(0.0f, 35.0f);
+            if (rSide == 0) newAngle = newAngle * -1;
 
-            float xRange = UnityEngine.Random.Range(0.0f, 4.0f);
-            float zRange = UnityEngine.Random.Range(0.0f, 4.0f);
+            //Randomise other parts of raycast to go down different ways and
+            float xRange = UnityEngine.Random.Range(-0.0f, -10.0f);
+            float zRange = UnityEngine.Random.Range(-0.0f, -10.0f);
 
-            if(xSide == 0) xRange = xRange * -1;
-            if(zSide == 0) zRange = zRange * -1;
+            Vector3 castDir = new Vector3(xRange, newAngle, zRange);
 
-            Vector3 randomPos = new Vector3(xRange+playerPos.x, playerPos.y, zRange+playerPos.z);
-
-            //INTRODUCING NEW NAVMESH TECHNOLOGY
-            NavMeshHit hit;
-            if(NavMesh.SamplePosition(randomPos, out hit, 4.0f, NavMesh.AllAreas))
+            //Use raycast to find somewhere on the navmesh behind player
+            RaycastHit personnel;
+            if (Physics.Raycast(playerPos, castDir, out personnel, 20.0f, LayerMask.GetMask("House")))
             {
-                agent.Warp(hit.position);
-                Debug.Log("Demon teleported!");
-                yield return new WaitForSecondsRealtime(2);
+                Vector3 behindyou = personnel.point;
+
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(behindyou, out hit, 4.0f, NavMesh.AllAreas))
+                {
+                    agent.Warp(hit.position);
+                    Debug.Log("Demon teleported!");
+                    yield return new WaitForSecondsRealtime(2);
+                }
+                else
+                {
+                    Debug.Log("Demon failed to find NavMesh around player. Teleportation failed.");
+                }
             }
             else
             {
-                Debug.Log("Demon failed to find NavMesh around player. Teleportation failed.");
+                Debug.Log("Demon failed to find a collider behind player. Teleportation failed.");
             }
+
             
         }
     }

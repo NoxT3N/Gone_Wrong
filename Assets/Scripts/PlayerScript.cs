@@ -61,9 +61,18 @@ public class PlayerScript : MonoBehaviour
         Item item = hit.collider.GetComponent<Item>();
         if (item != null)
         {
+            item.ToggleOutline(true);
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 item.Interact();
+            }
+        }
+        else
+        {
+            if (item != null)
+            {
+                item.ToggleOutline(false);
             }
         }
     }

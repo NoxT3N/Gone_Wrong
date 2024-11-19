@@ -66,6 +66,7 @@ public class PlayerScript : MonoBehaviour
                 GameManager.Instance.OutlineItem(item);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    //Debug.Log("E key pressed");
                     item.Interact();
                 }
             }

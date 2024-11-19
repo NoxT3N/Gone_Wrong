@@ -1120,7 +1120,7 @@ GameObject:
   - component: {fileID: 680335531}
   - component: {fileID: 680335530}
   - component: {fileID: 680335529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: House_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1835,7 +1835,7 @@ GameObject:
   - component: {fileID: 1070421390}
   - component: {fileID: 1070421389}
   - component: {fileID: 1070421388}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: House_Layout
   m_TagString: Untagged
   m_Icon: {fileID: 0}

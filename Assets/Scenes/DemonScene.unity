@@ -1583,8 +1583,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1651939075}
-  aggro: 0
+  aggro: 1
   isPlayerLooking: 0
+  period: 0
 --- !u!195 &767521807
 NavMeshAgent:
   m_ObjectHideFlags: 0

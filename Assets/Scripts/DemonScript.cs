@@ -25,7 +25,7 @@ public class DemonScript : MonoBehaviour
     {
         if (isPlayerLooking)
         {
-            Attack();
+            IncrementAggression(true);
         }
     }
 
@@ -35,7 +35,7 @@ public class DemonScript : MonoBehaviour
         Debug.Log("Demon teleportation coroutine started");
         while (true)
         {
-            yield return new WaitForSecondsRealtime(2);
+            yield return new WaitForSecondsRealtime(5/aggro);
 
             Vector3 playerPos = player.transform.position;
             float playerBackDir = player.transform.localEulerAngles.y+180;
@@ -77,8 +77,25 @@ public class DemonScript : MonoBehaviour
             
         }
     }
-    void Attack()
+
+    
+    //Increase or decrease demon aggression every 2 seconds
+    public float period = 0.0f;
+    void IncrementAggression(Boolean increase)
     {
-        Debug.Log("Player is looking at me");
+        if (period > 2)
+        {
+            Debug.Log("Aggression Level: " + aggro);
+            if (increase) {
+                if (aggro < 5) aggro++;
+                else Debug.Log("Game Over");
+            } 
+            else {
+                if (aggro > 1) aggro--;
+            } 
+            period = 0;
+        }
+        
+        period += UnityEngine.Time.deltaTime;
     }
 }

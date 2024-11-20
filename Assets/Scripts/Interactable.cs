@@ -8,7 +8,7 @@ public class Interactable : ScriptableObject
     public Sprite icon;
     public InteractionType interactionType;
 
-    public Item associatedItem;
+    [HideInInspector] public Item associatedItem;
     
     public virtual void Interact()
     {

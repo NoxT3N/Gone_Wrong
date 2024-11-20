@@ -32,6 +32,8 @@ public class Item : MonoBehaviour
         {
             Debug.Log($"Interactable for {gameObject.name} is assigned: {Interactable.objectName}");
         }
+
+        Interactable.associatedItem = this;
     }
 
     public void ToggleOutline(bool toggle)
@@ -40,16 +42,23 @@ public class Item : MonoBehaviour
     }
     public void Interact()
     {
+        Debug.Log("Item interaction triggered.");
         if (Interactable != null)
         {
+            Debug.Log($"Interacting with: {Interactable.objectName}");
             Interactable.Interact();
 
             if(Interactable.interactionType == Interactable.InteractionType.PickupablItem)
             {
                 if(Interactable.associatedItem != null)
                 {
+                    Debug.Log("Adding item to inventory.");
                     Inventory.Instance.AddItem(Interactable.associatedItem);
 
+                }
+                else
+                {
+                    Debug.LogError("Associated item is null!");
                 }
             }
         }

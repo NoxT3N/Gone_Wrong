@@ -17,8 +17,14 @@ public class Inventory : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void AddItem(Item item)
@@ -26,9 +32,6 @@ public class Inventory : MonoBehaviour
         items.Add(item);
         Debug.Log($"Added {item.name} to inventory.");
 
-
-        for (int i = 0; i < slots.Count; i++)
-        {
            foreach(GameObject slot in slots)
             {
                 if(slot.transform.childCount == 0)
@@ -42,15 +45,15 @@ public class Inventory : MonoBehaviour
                     newItem.transform.localPosition = Vector3.zero;
                     newItem.transform.localScale = Vector3.one;
 
-                    Debug.Log($"Assigned sprite to slot {i}");
+                    Debug.Log($"Assigned sprite to slot");
 
-                    Destroy(item.gameObject);
+                    item.gameObject.SetActive(false);
 
                     return;
 
                 }
             }
-        }
+        
         
             
     }

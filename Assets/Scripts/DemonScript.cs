@@ -1,13 +1,9 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using Unity.VisualScripting;
 
 public class DemonScript : MonoBehaviour
 {

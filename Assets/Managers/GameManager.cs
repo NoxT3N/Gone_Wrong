@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public void OutlineItem(Item item)
     {
-        if(currentItem != null)
+        if (currentItem != null)
         {
             currentItem.ToggleOutline(false);
         }
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void ClearOutline()
     {
-        if(currentItem != null)
+        if (currentItem != null)
         {
             currentItem.ToggleOutline(false);
             currentItem = null;

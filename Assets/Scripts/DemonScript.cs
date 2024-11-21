@@ -9,7 +9,7 @@ public class DemonScript : MonoBehaviour
 {
     [Header("Demon Settings")]
     [SerializeField] private GameObject player;
-    [SerializeField] private int aggro;
+    public int aggro;
     [HideInInspector] public bool isPlayerLooking = false;
     private NavMeshAgent agent;
 
@@ -32,7 +32,8 @@ public class DemonScript : MonoBehaviour
         _vignette.intensity.value = aggro/5f - 0.2f; 
         if (isPlayerLooking)
         {
-            IncrementAggression(true);
+            //IncrementAggression(true);
+            HandleAggressionIncrease();
         }
     }
 
@@ -75,22 +76,56 @@ public class DemonScript : MonoBehaviour
 
 
     //Increase or decrease demon aggression every 2 seconds
-    public float period = 0.0f;
-    void IncrementAggression(Boolean increase)
+    //public float period = 0.0f;
+    //public void IncrementAggression(Boolean increase)
+    //{
+    //    if (period > 2)
+    //    {
+    //        Debug.Log("Aggression Level: " + aggro);
+    //        if (increase) {
+    //            if (aggro < 5) aggro++;
+    //            else Debug.Log("Game Over");
+    //        } 
+    //        else {
+
+    //            if (aggro > 1) aggro--;
+    //        } 
+    //        period = 0;
+    //    }
+
+    //    period += UnityEngine.Time.deltaTime;
+    //}
+
+    private float increaseTimer = 0f;
+    private void HandleAggressionIncrease()
     {
-        if (period > 2)
+        increaseTimer += Time.deltaTime;
+        if (increaseTimer >= 2f)
         {
-            Debug.Log("Aggression Level: " + aggro);
-            if (increase) {
-                if (aggro < 5) aggro++;
-                else Debug.Log("Game Over");
-            } 
-            else {
-                if (aggro > 1) aggro--;
-            } 
-            period = 0;
+            if (aggro < 5)
+            {
+                aggro++;
+                Debug.Log("Aggression increased. Level: " + aggro);
+            }
+            else
+            {
+                Debug.Log("Game Over");
+            }
+            increaseTimer = 0f;
         }
-        
-        period += UnityEngine.Time.deltaTime;
+    }
+    private float decreaseTimer = 0f;
+    public void HandleAggressionDecrease()
+    {
+        decreaseTimer += Time.deltaTime;
+        if (decreaseTimer >= 2f)
+        {
+            if (aggro > 1)
+            {
+                aggro--;
+                Debug.Log("Aggression decreased. Level: " + aggro);
+            }
+            decreaseTimer = 0f;
+        }
     }
 }

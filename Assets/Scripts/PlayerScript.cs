@@ -81,7 +81,6 @@ public class PlayerScript : MonoBehaviour
             GameManager.Instance.ClearOutline();
         }
     }
-
     private void PerformRaycast()
     {
         RaycastHit hit;
@@ -99,5 +98,9 @@ public class PlayerScript : MonoBehaviour
         {
             GameManager.Instance.SetIsPlayerLookingAtDemon(false);
         }
+    }
+    private void Hide()
+    {
+
     }
 }

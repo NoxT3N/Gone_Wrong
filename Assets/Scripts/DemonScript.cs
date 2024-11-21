@@ -5,6 +5,9 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
 
 public class DemonScript : MonoBehaviour
 {
@@ -13,16 +16,24 @@ public class DemonScript : MonoBehaviour
     [SerializeField] private int aggro;
     [HideInInspector] public bool isPlayerLooking = false;
     private NavMeshAgent agent;
-    
+
+    [SerializeField] private Volume postProcessingVolume;
+    [SerializeField] private VolumeProfile postProfileMain;    
+
+    private Vignette _vignette;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        StartCoroutine(Teleport());        
+        StartCoroutine(Teleport());    
+
+        postProcessingVolume.profile = postProfileMain;
+        postProcessingVolume.profile.TryGet(out _vignette);    
     }
 
     void Update()
     {
+        _vignette.intensity.value = aggro/5f - 0.2f; 
         if (isPlayerLooking)
         {
             IncrementAggression(true);

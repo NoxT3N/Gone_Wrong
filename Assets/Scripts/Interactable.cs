@@ -5,10 +5,7 @@ public class Interactable : ScriptableObject
 {
     public string objectName;
     public string description;
-    public Sprite icon;
     public InteractionType interactionType;
-
-    [HideInInspector] public Item associatedItem;
     
     public virtual void Interact()
     {

@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5840c030066a52469dbb1d8e971adcb, type: 3}
-  m_Name: Grimoire
+  m_Name: Box
   m_EditorClassIdentifier: 
-  objectName: Nana's Grimoire
-  description: Open at your own risk
-  icon: {fileID: 1045934223, guid: 0460f24583f11574aa9bcbdfb802ff87, type: 3}
+  objectName: 
+  description: 
   interactionType: 0
-  associatedItem: {fileID: 0}

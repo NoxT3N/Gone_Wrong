@@ -54,17 +54,31 @@ public class PlayerScript : MonoBehaviour
     private void DetectDemon(RaycastHit hit)
     {
             DemonScript demon = hit.collider.GetComponent<DemonScript>();
-            GameManager.Instance.SetIsPlayerLooking(demon != null);
+            GameManager.Instance.SetIsPlayerLookingAtDemon(demon != null);
     }
     private void HandleItemInteractions(RaycastHit hit)
     {
         Item item = hit.collider.GetComponent<Item>();
         if (item != null)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (GameManager.Instance.CanInteract(item))
             {
-                item.Interact();
+                GameManager.Instance.OutlineItem(item);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    //Debug.Log("E key pressed");
+                    item.Interact();
+                }
             }
+            //if (GameManager.Instance.CanInteract(item) && Input.GetKeyDown(KeyCode.E))
+            //{
+            //    item.Interact();
+            //}
+
+        }
+        else
+        {
+            GameManager.Instance.ClearOutline();
         }
     }
 
@@ -83,7 +97,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.SetIsPlayerLooking(false);
+            GameManager.Instance.SetIsPlayerLookingAtDemon(false);
         }
     }
 }

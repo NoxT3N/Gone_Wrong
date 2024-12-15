@@ -26,9 +26,12 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleGravity();
-        HandleMovement();
-        PerformRaycast();
+        if(!PauseMenu.isPaused)
+        {
+            HandleGravity();
+            HandleMovement();
+            PerformRaycast();
+        }
     }
 
     private void HandleGravity()

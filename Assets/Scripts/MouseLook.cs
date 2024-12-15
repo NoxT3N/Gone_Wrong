@@ -18,6 +18,10 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Stop camera movement if the game is paused
+        if (PauseMenu.isPaused)
+            return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 

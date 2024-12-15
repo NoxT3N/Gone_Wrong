@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     public string objectName => Interactable.objectName;
     public string description => Interactable.description;
     public Sprite icon => Interactable.icon;
-    
+
     public bool open = false;
     
 
@@ -78,5 +78,4 @@ public class Item : MonoBehaviour
             return;  // Prevent further processing if Interactable is null
         }
     }
-
 }

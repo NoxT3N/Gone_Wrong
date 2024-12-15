@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -8,6 +9,8 @@ public class Item : MonoBehaviour
     public string objectName => Interactable.objectName;
     public string description => Interactable.description;
     public Sprite icon => Interactable.icon;
+    
+    public bool open = false;
     
 
     private void Start()
@@ -60,6 +63,13 @@ public class Item : MonoBehaviour
                 {
                     Debug.LogError("Associated item is null!");
                 }
+            }
+            else if (Interactable.interactionType == Interactable.InteractionType.Door) {
+                open = !open;
+                Debug.Log("Opening Door");
+
+                if (open) gameObject.transform.parent.transform.Rotate(0f, 100f, 0f);
+                else gameObject.transform.parent.transform.Rotate(0f, -100f, 0f);
             }
         }
         else

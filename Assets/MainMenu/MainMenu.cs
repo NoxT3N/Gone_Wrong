@@ -7,6 +7,13 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame() 
     {
+        Time.timeScale = 1.0f;
+        GameObject pauseMenu = GameObject.Find("PauseMenu");
+        if (pauseMenu != null) 
+        {
+            pauseMenu.SetActive(false);
+        }
+
         SceneManager.LoadScene("IteractScene");
     }
 

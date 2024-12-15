@@ -29,6 +29,9 @@ public class DemonScript : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.isPaused)
+            return;
+
         _vignette.intensity.value = aggro/5f - 0.2f; 
         if (isPlayerLooking)
         {
@@ -43,6 +46,13 @@ public class DemonScript : MonoBehaviour
         Debug.Log("Demon teleportation coroutine started");
         while (true)
         {
+
+            // Wait until the game is not paused
+            while (PauseMenu.isPaused)
+            {
+                yield return null; // Pause the coroutine execution
+            }
+
             yield return new WaitForSecondsRealtime(5/aggro);
 
             Vector3 playerPos = player.transform.position;
@@ -64,6 +74,13 @@ public class DemonScript : MonoBehaviour
             {
                 agent.Warp(hit.position);
                 Debug.Log("Demon teleported!");
+
+                // Wait again until the game is not paused
+                while (PauseMenu.isPaused)
+                {
+                    yield return null;
+                }
+
                 yield return new WaitForSecondsRealtime(2);
             }
             else

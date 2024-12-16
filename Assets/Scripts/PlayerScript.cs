@@ -24,6 +24,13 @@ public class PlayerScript : MonoBehaviour
         player = GetComponent<CharacterController>();
     }
 
+    void Start()
+    {
+        Time.timeScale = 1.0f; 
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -116,6 +123,12 @@ public class PlayerScript : MonoBehaviour
     }
     private void PerformRaycast()
     {
+        if (POV == null)
+        {
+            Debug.LogError("POV Camera is not assigned.");
+            return;
+        }
+
         RaycastHit hit;
         Vector3 rayOrigin = POV.transform.position;
         Vector3 rayDirection = POV.transform.forward;
@@ -124,12 +137,14 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, lookDistance))
         {
+            Debug.Log("Raycast hit: " + hit.collider.name);
             DetectDemon(hit);
             HandleItemInteractions(hit);
         }
         else
         {
             GameManager.Instance.SetIsPlayerLookingAtDemon(false);
+            Debug.Log("Raycast did not hit anything.");
         }
     }
     private void Hide()

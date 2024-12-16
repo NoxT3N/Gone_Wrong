@@ -64,12 +64,21 @@ public class Item : MonoBehaviour
                     Debug.LogError("Associated item is null!");
                 }
             }
-            else if (Interactable.interactionType == Interactable.InteractionType.Door) {
+            else if (Interactable.interactionType == Interactable.InteractionType.Door)
+            {
                 open = !open;
-                Debug.Log("Opening Door");
-
-                if (open) gameObject.transform.parent.transform.Rotate(0f, 100f, 0f);
-                else gameObject.transform.parent.transform.Rotate(0f, -100f, 0f);
+                if (open)
+                {
+                    Debug.Log("Opening Door");
+                    gameObject.transform.parent.transform.Rotate(0f, 100f, 0f);
+                    AudioManager.Instance.Play("DoorOpen"); // Play open sound
+                }
+                else
+                {
+                    Debug.Log("Closing Door");
+                    gameObject.transform.parent.transform.Rotate(0f, -100f, 0f);
+                    AudioManager.Instance.Play("DoorClose"); // Play close sound
+                }
             }
         }
         else

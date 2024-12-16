@@ -28,7 +28,15 @@ public class GameManager : MonoBehaviour
 
     public void SetIsPlayerLookingAtDemon(bool b)
     {
-        demon.isPlayerLooking = b;
+        if (demon != null)
+        {
+            demon.isPlayerLooking = b;
+        }
+        else 
+        {
+            Debug.LogError("Demon is null.");
+        }
+        
     }
 
     public bool CanInteract(Item item)

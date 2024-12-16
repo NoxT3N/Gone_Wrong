@@ -17,6 +17,9 @@ public class DemonScript : MonoBehaviour
     [SerializeField] private VolumeProfile postProfileMain;    
 
     private Vignette _vignette;
+    private int lookCount = 0; // Track how many times the player looks at the demon and the number of looks before a game over
+    private const int maxLooks = 5;
+    private bool hasLooked = false;
 
     void Start()
     {
@@ -24,7 +27,10 @@ public class DemonScript : MonoBehaviour
         StartCoroutine(Teleport());    
 
         postProcessingVolume.profile = postProfileMain;
-        postProcessingVolume.profile.TryGet(out _vignette);    
+        if (!postProcessingVolume.profile.TryGet(out _vignette))
+        {
+            Debug.LogError("Vignette not found in the Volume Profile.");
+        }
     }
 
     void Update()
@@ -32,11 +38,45 @@ public class DemonScript : MonoBehaviour
         if (PauseMenu.isPaused)
             return;
 
-        _vignette.intensity.value = aggro/5f - 0.2f; 
-        if (isPlayerLooking)
+        //_vignette.intensity.value = aggro/5f - 0.2f;
+        if (isPlayerLooking && !hasLooked)
         {
             //IncrementAggression(true);
             HandleAggressionIncrease();
+            HandleLookCount();
+            UpdateVignette();
+            hasLooked = true;
+        }
+        else if (!isPlayerLooking) 
+        {
+            hasLooked = false;
+        }
+    }
+
+    private void UpdateVignette()
+    {
+        if (_vignette != null)
+        {
+            _vignette.intensity.value = Mathf.Clamp(0.2f + (aggro / 5f), 0.2f, 1f);
+        }
+    }
+
+    private void HandleLookCount() 
+    {
+        if (isPlayerLooking) 
+        {
+            lookCount++;
+            if (lookCount > maxLooks)//triggers game over
+            {
+                FindObjectOfType<PauseMenu>().ShowGameOver();
+                Debug.Log("Player looked at the demon too many times");
+            }
+            else 
+            {
+                Debug.Log($"Player has looked at the demon {lookCount} times.");
+            }
+
+            //isPlayerLooking = false;
         }
     }
 

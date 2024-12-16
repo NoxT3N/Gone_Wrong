@@ -7,20 +7,24 @@ public class PauseMenu : MonoBehaviour
 {
 
     public GameObject pauseMenu;
+    public GameObject GameOverMenu;
 
     public static bool isPaused;
+    public static bool isGameOver;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pauseMenu.SetActive(false);
+        GameOverMenu.SetActive(false);
         isPaused = false; // Reset the pause state when the scene starts
+        isGameOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver) 
         {
             if (isPaused)
             {
@@ -42,6 +46,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        isGameOver = true;
 
         // Show and unlock the cursor
         Cursor.visible = true;
@@ -55,9 +60,22 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1.0f;
         isPaused = false;
 
-        // Hide and lock the cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void ShowGameOver() 
+    {
+        Debug.Log("GameOver called");
+        GameOverMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+        isGameOver = true;
+        AudioManager.Instance.Stop("StartingAmbaince");
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
 
     public void GoToMainMenu() 

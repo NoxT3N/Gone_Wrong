@@ -137,14 +137,14 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, lookDistance))
         {
-            Debug.Log("Raycast hit: " + hit.collider.name);
+            //Debug.Log("Raycast hit: " + hit.collider.name);
             DetectDemon(hit);
             HandleItemInteractions(hit);
         }
         else
         {
             GameManager.Instance.SetIsPlayerLookingAtDemon(false);
-            Debug.Log("Raycast did not hit anything.");
+            //Debug.Log("Raycast did not hit anything.");
         }
     }
     private void Hide()

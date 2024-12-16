@@ -14352,6 +14352,16 @@ MonoBehaviour:
     loop: 1
     volume: 1
     source: {fileID: 0}
+  - name: DoorOpen
+    clip: {fileID: 8300000, guid: 3e8e1e186f743ef478a128b0bf229b14, type: 3}
+    loop: 0
+    volume: 1
+    source: {fileID: 0}
+  - name: DoorClose
+    clip: {fileID: 8300000, guid: 4569405d95030a7479f48b549376d927, type: 3}
+    loop: 0
+    volume: 0.5
+    source: {fileID: 0}
 --- !u!4 &617931741
 Transform:
   m_ObjectHideFlags: 0

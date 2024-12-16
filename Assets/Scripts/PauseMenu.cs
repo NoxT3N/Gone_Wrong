@@ -67,6 +67,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1.0f;
         isPaused = false;
 
+        AudioManager.Instance.Stop("StartingAmbaince");
+
         SceneManager.LoadScene("MainMenuScene");
     }
 

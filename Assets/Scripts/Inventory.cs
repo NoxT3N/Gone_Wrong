@@ -50,7 +50,6 @@ public class Inventory : MonoBehaviour
                     item.gameObject.SetActive(false);
 
                     return;
-
                 }
             }
         

@@ -1,0 +1,33 @@
+# Blender 3.4.1 MTL File: 'american_football_4k.blend'
+# www.blender.org
+
+newmtl Material
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.098495 0.024974 0.017544
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl Material.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.375749 0.342050 0.186385
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl american_football
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd american_football_4k.blend (1)/textures/american_football_diff_4k.jpg
+map_Ns american_football_4k.blend (1)/textures/american_football_rough_4k.exr
+map_Bump -bm 1.000000 american_football_4k.blend (1)/textures/american_football_nor_gl_4k.exr

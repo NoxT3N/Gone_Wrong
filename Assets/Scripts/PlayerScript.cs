@@ -15,7 +15,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float lookDistance = 50f;
 
     private bool isSprinting = false;
-   
+    private bool isMoving = false; // Track if the player is moving
+
 
     // Awake is called when the script instance is being loaded
     void Awake()
@@ -23,12 +24,30 @@ public class PlayerScript : MonoBehaviour
         player = GetComponent<CharacterController>();
     }
 
+    void Start()
+    {
+        Time.timeScale = 1.0f; 
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        HandleGravity();
-        HandleMovement();
-        PerformRaycast();
+        if (!PauseMenu.isPaused)
+        {
+            HandleGravity();
+            HandleMovement();
+            PerformRaycast();
+        }
+        else 
+        {
+            if (isMoving) 
+            {
+                AudioManager.Instance.Stop("Walk");
+                isMoving = false;
+            }
+        }
     }
 
     private void HandleGravity()
@@ -50,6 +69,27 @@ public class PlayerScript : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         player.Move(move * currentSpeed * Time.deltaTime);
         player.Move(velocity * Time.deltaTime);
+
+        if (move.magnitude > 0.1f) // Check if the player is moving
+        {
+            if (!isMoving) 
+            {
+                // Play the walking sound if not already playing
+                AudioManager.Instance.Play("Walk");
+                isMoving = true;
+            }
+        }
+        else
+        {
+            if (isMoving)
+            {
+                // Stop the walking sound when the player stops
+                AudioManager.Instance.Stop("Walk");
+                isMoving = false;
+            }
+        }
+
+
     }
     private void DetectDemon(RaycastHit hit)
     {
@@ -83,6 +123,12 @@ public class PlayerScript : MonoBehaviour
     }
     private void PerformRaycast()
     {
+        if (POV == null)
+        {
+            Debug.LogError("POV Camera is not assigned.");
+            return;
+        }
+
         RaycastHit hit;
         Vector3 rayOrigin = POV.transform.position;
         Vector3 rayDirection = POV.transform.forward;
@@ -91,12 +137,14 @@ public class PlayerScript : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, lookDistance))
         {
+            Debug.Log("Raycast hit: " + hit.collider.name);
             DetectDemon(hit);
             HandleItemInteractions(hit);
         }
         else
         {
             GameManager.Instance.SetIsPlayerLookingAtDemon(false);
+            Debug.Log("Raycast did not hit anything.");
         }
     }
     private void Hide()

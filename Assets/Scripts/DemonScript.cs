@@ -30,6 +30,9 @@ public class DemonScript : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.isPaused)
+            return;
+
         _vignette.intensity.value = aggro/5f - 0.2f; 
         if (isPlayerLooking)
         {
@@ -52,6 +55,11 @@ public class DemonScript : MonoBehaviour
                 {
                     Vector3 playerPos = player.transform.position;
 
+            // Wait until the game is not paused
+            while (PauseMenu.isPaused)
+            {
+                yield return null; // Pause the coroutine execution
+            }
                     //Check distance to ensure it's within proximity
                     Vector3 dirToPoint = (tpPoint.position - playerPos).normalized;
                     float distToPoint = Vector3.Distance(playerPos, tpPoint.position);

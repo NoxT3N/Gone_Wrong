@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
 
-public class PuzzlePiece : MonoBehaviour
+public class PuzzlePiece : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField]
     private Canvas canvas;
@@ -18,13 +18,49 @@ public class PuzzlePiece : MonoBehaviour
     [SerializeField]
     private PuzzleManager puzzleManager;
 
+    private RectTransform rect;
+    private RectTransform solutionRect;
+    private CanvasGroup cGroup;
     public bool inSpot;
 
-    private void Start()
+    private void Awake()
     {
         puzzleManager = GameObject.FindGameObjectWithTag("PuzzleManager").GetComponent<PuzzleManager>();
+        rect = GetComponent<RectTransform>();
+        solutionRect = intendedSpot.GetComponent<RectTransform>();
+        cGroup = GetComponent<CanvasGroup>();
+
     }
 
+    public void OnBeginDrag(PointerEventData eData)
+    {
+        Debug.Log("Drag begun");
+        cGroup.blocksRaycasts = false;
+    }
+
+    public void OnDrag(PointerEventData eData)
+    {
+        Debug.Log("Dragging...");
+        rect.anchoredPosition += eData.delta / canvas.scaleFactor;
+    }
+
+    public void OnEndDrag(PointerEventData eData)
+    {
+        Debug.Log("Drag ended");
+        cGroup.blocksRaycasts = true;
+    }
+
+    public void OnPointerDown(PointerEventData eData)
+    {
+        Debug.Log("Mouse down");
+    }
+
+    public void OnDrop(PointerEventData eData)
+    {
+
+    }
+
+    /*
     public void DragPiece(BaseEventData data)
     {
         if (!inSpot)
@@ -79,4 +115,5 @@ public class PuzzlePiece : MonoBehaviour
             }
         }
     }
+    */
 }

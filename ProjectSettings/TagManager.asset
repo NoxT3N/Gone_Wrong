@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Demon
+  - PuzzleManager
   layers:
   - Default
   - TransparentFX

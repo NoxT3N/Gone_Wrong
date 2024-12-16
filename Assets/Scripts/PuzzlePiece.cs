@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class PuzzlePiece : MonoBehaviour
@@ -14,7 +15,15 @@ public class PuzzlePiece : MonoBehaviour
     [SerializeField]
     private float lockTolerance;
 
-    private bool inSpot;
+    [SerializeField]
+    private PuzzleManager puzzleManager;
+
+    public bool inSpot;
+
+    private void Start()
+    {
+        puzzleManager = GameObject.FindGameObjectWithTag("PuzzleManager").GetComponent<PuzzleManager>();
+    }
 
     public void DragPiece(BaseEventData data)
     {
@@ -39,6 +48,7 @@ public class PuzzlePiece : MonoBehaviour
         float distance = Vector2.Distance(transform.position, intendedSpot.transform.position);
         if(distance <= lockTolerance)
         {
+            Debug.Log("Puzzle piece locked in place!");
             inSpot = true;
             Vector2 newPos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -49,6 +59,7 @@ public class PuzzlePiece : MonoBehaviour
                 );
 
             transform.position = canvas.transform.TransformPoint(newPos);
+            puzzleManager.updatePuzzleState();
         }
     }
 }

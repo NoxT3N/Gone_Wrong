@@ -9,9 +9,11 @@ public class DemonScript : MonoBehaviour
 {
     [Header("Demon Settings")]
     [SerializeField] private GameObject player;
+    [SerializeField] private Transform[] tpPoints;
+    [SerializeField] private float tpDelay = 5f;
+    [SerializeField] private float maxTPdistance;
     public int aggro;
     [HideInInspector] public bool isPlayerLooking = false;
-    private NavMeshAgent agent;
 
     [SerializeField] private Volume postProcessingVolume;
     [SerializeField] private VolumeProfile postProfileMain;    
@@ -20,7 +22,6 @@ public class DemonScript : MonoBehaviour
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         StartCoroutine(Teleport());    
 
         postProcessingVolume.profile = postProfileMain;
@@ -32,7 +33,6 @@ public class DemonScript : MonoBehaviour
         _vignette.intensity.value = aggro/5f - 0.2f; 
         if (isPlayerLooking)
         {
-            //IncrementAggression(true);
             HandleAggressionIncrease();
         }
     }
@@ -41,60 +41,37 @@ public class DemonScript : MonoBehaviour
     IEnumerator Teleport()
     {
         Debug.Log("Demon teleportation coroutine started");
+
         while (true)
         {
-            yield return new WaitForSecondsRealtime(5/aggro);
+            yield return new WaitForSecondsRealtime(tpDelay / aggro);
 
-            Vector3 playerPos = player.transform.position;
-
-            int xSide = UnityEngine.Random.Range(0, 2);
-            int zSide = UnityEngine.Random.Range(0, 2);
-
-            float xRange = UnityEngine.Random.Range(0.0f, 4.0f);
-            float zRange = UnityEngine.Random.Range(0.0f, 4.0f);
-
-            if (xSide == 0) xRange = xRange * -1;
-            if (zSide == 0) zRange = zRange * -1;
-
-            Vector3 randomPos = new Vector3(xRange + playerPos.x, playerPos.y, zRange + playerPos.z);
-
-            //INTRODUCING NEW NAVMESH TECHNOLOGY
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPos, out hit, 4.0f, NavMesh.AllAreas))
+            if (!isPlayerLooking)
             {
-                agent.Warp(hit.position);
-                Debug.Log("Demon teleported!");
-                yield return new WaitForSecondsRealtime(2);
-            }
-            else
-            {
-                Debug.Log("Demon failed to find NavMesh around player. Teleportation failed.");
-            }
+                foreach (Transform tpPoint in tpPoints)
+                {
+                    Vector3 playerPos = player.transform.position;
 
+                    //Check distance to ensure it's within proximity
+                    Vector3 dirToPoint = (tpPoint.position - playerPos).normalized;
+                    float distToPoint = Vector3.Distance(playerPos, tpPoint.position);
+
+                    //Check angle to ensure it's outside player's FOV
+                    float angleToPoint = Vector3.Angle(player.transform.forward, dirToPoint);
+
+                    if (distToPoint <= maxTPdistance && angleToPoint > 90f / 2f)
+                    {
+                        this.gameObject.transform.position = tpPoint.position;
+                        Debug.Log($"Demon teleported to: {tpPoint.position}");
+                        break; 
+                    }
+                }
+            }
         }
     }
 
 
-    //Increase or decrease demon aggression every 2 seconds
-    //public float period = 0.0f;
-    //public void IncrementAggression(Boolean increase)
-    //{
-    //    if (period > 2)
-    //    {
-    //        Debug.Log("Aggression Level: " + aggro);
-    //        if (increase) {
-    //            if (aggro < 5) aggro++;
-    //            else Debug.Log("Game Over");
-    //        } 
-    //        else {
 
-    //            if (aggro > 1) aggro--;
-    //        } 
-    //        period = 0;
-    //    }
-
-    //    period += UnityEngine.Time.deltaTime;
-    //}
 
     private float increaseTimer = 0f;
     private void HandleAggressionIncrease()
@@ -129,3 +106,4 @@ public class DemonScript : MonoBehaviour
         }
     }
 }
+

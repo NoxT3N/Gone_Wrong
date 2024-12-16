@@ -11,8 +11,6 @@ public class Item : MonoBehaviour
     public Sprite icon => Interactable.icon;
 
     public bool open = false;
-    public bool flip = false;
-    public float r = 100f;
     
 
     private void Start()
@@ -39,8 +37,6 @@ public class Item : MonoBehaviour
         }
 
         Interactable.associatedItem = this;
-
-        if (flip) r = -r;
     }
 
     public void ToggleOutline(bool toggle)
@@ -71,17 +67,16 @@ public class Item : MonoBehaviour
             else if (Interactable.interactionType == Interactable.InteractionType.Door)
             {
                 open = !open;
-
                 if (open)
                 {
                     Debug.Log("Opening Door");
-                    gameObject.transform.parent.transform.Rotate(0f, r, 0f);
+                    gameObject.transform.parent.transform.Rotate(0f, 100f, 0f);
                     AudioManager.Instance.Play("DoorOpen"); // Play open sound
                 }
                 else
                 {
                     Debug.Log("Closing Door");
-                    gameObject.transform.parent.transform.Rotate(0f, -r, 0f);
+                    gameObject.transform.parent.transform.Rotate(0f, -100f, 0f);
                     AudioManager.Instance.Play("DoorClose"); // Play close sound
                 }
             }

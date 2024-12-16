@@ -45,35 +45,38 @@ public class PuzzlePiece : MonoBehaviour
 
     public void DropPiece(BaseEventData data)
     {
-        PointerEventData pData = (PointerEventData)data;
-        Vector2 dPos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            (RectTransform)canvas.transform,
-            pData.position,
-            canvas.worldCamera,
-            out dPos
-            );
-
-        float distance = Vector2.Distance(dPos, intendedSpot.transform.position);
-        Debug.Log(distance, this);
-        if(distance <= lockTolerance)
+        if (!inSpot)
         {
-            Debug.Log("Puzzle piece locked in place!");
-            inSpot = true;
-            Vector2 newPos;
+            PointerEventData pData = (PointerEventData)data;
+            Vector2 dPos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 (RectTransform)canvas.transform,
-                (Vector2)intendedSpot.transform.position,
+                pData.position,
                 canvas.worldCamera,
-                out newPos
+                out dPos
                 );
 
-            transform.position = canvas.transform.TransformPoint(newPos);
-            puzzleManager.updatePuzzleState();
-        }
-        else
-        {
-            transform.position = canvas.transform.TransformPoint(dPos);
+            float distance = Vector2.Distance(dPos, intendedSpot.transform.position);
+            Debug.Log(distance, this);
+            if (distance <= lockTolerance)
+            {
+                Debug.Log("Puzzle piece locked in place!");
+                inSpot = true;
+                Vector2 newPos;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    (RectTransform)canvas.transform,
+                    (Vector2)intendedSpot.transform.position,
+                    canvas.worldCamera,
+                    out newPos
+                    );
+
+                transform.position = canvas.transform.TransformPoint(newPos);
+                puzzleManager.updatePuzzleState();
+            }
+            else
+            {
+                transform.position = canvas.transform.TransformPoint(dPos);
+            }
         }
     }
 }

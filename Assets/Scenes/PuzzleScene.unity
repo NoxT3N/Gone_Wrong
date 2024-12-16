@@ -631,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 1090877436}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &867322940
@@ -982,7 +982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 615363951}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1179878003
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 570677349}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1354626429
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 215278724}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1422899425
@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 1588152086}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1789457953
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 407998831}
-  lockTolerance: 40
+  lockTolerance: 50
   puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &2046470638

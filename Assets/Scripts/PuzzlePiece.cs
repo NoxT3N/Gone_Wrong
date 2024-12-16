@@ -1,25 +1,26 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PuzzlePiece : MonoBehaviour
 {
-    Vector3 mouseOffset;
+    [SerializeField]
+    private Canvas canvas;
 
-    private Vector3 mousePos()
+    public void DragHandler(BaseEventData data)
     {
-        return Camera.main.WorldToScreenPoint(transform.position);
-    }
+        PointerEventData pData = (PointerEventData)data;
 
-    //Called on first frame piece is clicked
-    private void OnMouseDown()
-    {
-        mouseOffset = Input.mousePosition - mousePos();
-    }
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)canvas.transform,
+            pData.position,
+            canvas.worldCamera,
+            out pos
+            );
 
-    //Called while piece is being dragged
-    private void OnMouseDrag()
-    {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mouseOffset);
+        transform.position = canvas.transform.TransformPoint(pos);
     }
 
 }

@@ -43,9 +43,19 @@ public class PuzzlePiece : MonoBehaviour
         }
     }
 
-    public void DropPiece()
+    public void DropPiece(BaseEventData data)
     {
-        float distance = Vector2.Distance(transform.position, intendedSpot.transform.position);
+        PointerEventData pData = (PointerEventData)data;
+        Vector2 dPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)canvas.transform,
+            pData.position,
+            canvas.worldCamera,
+            out dPos
+            );
+
+        float distance = Vector2.Distance(dPos, intendedSpot.transform.position);
+        Debug.Log(distance, this);
         if(distance <= lockTolerance)
         {
             Debug.Log("Puzzle piece locked in place!");
@@ -60,6 +70,10 @@ public class PuzzlePiece : MonoBehaviour
 
             transform.position = canvas.transform.TransformPoint(newPos);
             puzzleManager.updatePuzzleState();
+        }
+        else
+        {
+            transform.position = canvas.transform.TransformPoint(dPos);
         }
     }
 }

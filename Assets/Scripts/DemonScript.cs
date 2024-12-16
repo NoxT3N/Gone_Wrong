@@ -22,7 +22,7 @@ public class DemonScript : MonoBehaviour
     private bool hasLooked = false;
 
     //Vignette settings
-    private float minIntensity = 0.2f;
+    private float minIntensity = 0.0f;
     private float maxIntensity = 1.0f;
     private float intensityStep = 0.15f;
 

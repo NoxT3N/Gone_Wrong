@@ -66,7 +66,7 @@ public class DemonScript : MonoBehaviour
             if (xSide == 0) xRange = xRange * -1;
             if (zSide == 0) zRange = zRange * -1;
 
-            Vector3 randomPos = new Vector3(xRange + playerPos.x, playerPos.y, zRange + playerPos.z);
+            Vector3 randomPos = new Vector3(xRange + playerPos.x, 1.149f, zRange + playerPos.z);
 
             //INTRODUCING NEW NAVMESH TECHNOLOGY
             NavMeshHit hit;

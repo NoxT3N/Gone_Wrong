@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
             pauseMenu.SetActive(false);
         }
 
-        SceneManager.LoadScene("IteractScene");
+        SceneManager.LoadScene("MainScene");
     }
 
     public void QuitGame()

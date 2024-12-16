@@ -21,6 +21,11 @@ public class DemonScript : MonoBehaviour
     private const int maxLooks = 5;
     private bool hasLooked = false;
 
+    //Vignette settings
+    private float minIntensity = 0.2f;
+    private float maxIntensity = 1.0f;
+    private float intensityStep = 0.15f;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -30,6 +35,10 @@ public class DemonScript : MonoBehaviour
         if (!postProcessingVolume.profile.TryGet(out _vignette))
         {
             Debug.LogError("Vignette not found in the Volume Profile.");
+        }
+        else
+        {
+            _vignette.intensity.value = minIntensity;
         }
     }
 
@@ -57,7 +66,7 @@ public class DemonScript : MonoBehaviour
     {
         if (_vignette != null)
         {
-            _vignette.intensity.value = Mathf.Clamp(0.2f + (aggro / 5f), 0.2f, 1f);
+            _vignette.intensity.value = Mathf.Clamp(_vignette.intensity.value + intensityStep, minIntensity, maxIntensity);
         }
     }
 

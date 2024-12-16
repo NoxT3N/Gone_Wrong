@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 215278727}
   - component: {fileID: 215278726}
   - component: {fileID: 215278728}
+  - component: {fileID: 215278729}
   m_Layer: 5
   m_Name: Piece1Intended
   m_TagString: Untagged
@@ -207,6 +208,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 1422899424}
+  puzzleManager: {fileID: 0}
+--- !u!225 &215278729
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215278724}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &407998831
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +234,7 @@ GameObject:
   - component: {fileID: 407998834}
   - component: {fileID: 407998833}
   - component: {fileID: 407998835}
+  - component: {fileID: 407998836}
   m_Layer: 5
   m_Name: Piece2Intended
   m_TagString: Untagged
@@ -295,6 +311,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 2046470637}
+  puzzleManager: {fileID: 0}
+--- !u!225 &407998836
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407998831}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &570677349
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +337,7 @@ GameObject:
   - component: {fileID: 570677352}
   - component: {fileID: 570677351}
   - component: {fileID: 570677353}
+  - component: {fileID: 570677354}
   m_Layer: 5
   m_Name: Piece6Intended
   m_TagString: Untagged
@@ -383,6 +414,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 1354626428}
+  puzzleManager: {fileID: 0}
+--- !u!225 &570677354
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570677349}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &615363951
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +440,7 @@ GameObject:
   - component: {fileID: 615363954}
   - component: {fileID: 615363953}
   - component: {fileID: 615363955}
+  - component: {fileID: 615363956}
   m_Layer: 5
   m_Name: Piece3Intended
   m_TagString: Untagged
@@ -471,6 +517,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 1179878002}
+  puzzleManager: {fileID: 0}
+--- !u!225 &615363956
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615363951}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &649204643
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +745,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 1090877436}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &867322940
 MonoBehaviour:
@@ -724,6 +783,7 @@ GameObject:
   - component: {fileID: 1090877439}
   - component: {fileID: 1090877438}
   - component: {fileID: 1090877440}
+  - component: {fileID: 1090877441}
   m_Layer: 5
   m_Name: Piece4Intended
   m_TagString: Untagged
@@ -800,6 +860,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 867322939}
+  puzzleManager: {fileID: 0}
+--- !u!225 &1090877441
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090877436}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1144435125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1104,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 615363951}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1179878003
 MonoBehaviour:
@@ -1225,7 +1298,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 570677349}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1354626429
 MonoBehaviour:
@@ -1459,7 +1531,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 215278724}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1422899425
 MonoBehaviour:
@@ -1577,6 +1648,7 @@ GameObject:
   - component: {fileID: 1588152089}
   - component: {fileID: 1588152088}
   - component: {fileID: 1588152090}
+  - component: {fileID: 1588152091}
   m_Layer: 5
   m_Name: Piece5Intended
   m_TagString: Untagged
@@ -1653,6 +1725,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753b5f5262ed0ab44887fdee9ee34a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece: {fileID: 1789457952}
+  puzzleManager: {fileID: 0}
+--- !u!225 &1588152091
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588152086}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1789457948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,7 +1832,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 1588152086}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &1789457953
 MonoBehaviour:
@@ -1911,7 +1996,6 @@ MonoBehaviour:
   canvas: {fileID: 1371174576}
   intendedSpot: {fileID: 407998831}
   lockTolerance: 50
-  puzzleManager: {fileID: 1865990333}
   inSpot: 0
 --- !u!114 &2046470638
 MonoBehaviour:

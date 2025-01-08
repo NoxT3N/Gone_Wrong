@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
+using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -16,9 +14,11 @@ public class DemonScript : MonoBehaviour
     [HideInInspector] public bool isPlayerLooking = false;
 
     [SerializeField] private Volume postProcessingVolume;
-    [SerializeField] private VolumeProfile postProfileMain;    
+    [SerializeField] private VolumeProfile postProfileMain;
 
     private Vignette _vignette;
+    private float increaseTimer = 0f;
+    private float decreaseTimer = 0f;
 
     void Start()
     {
@@ -30,58 +30,52 @@ public class DemonScript : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.IsPaused) return;
+        if (MenuUIManager.Instance.isPaused) return;
 
-        _vignette.intensity.value = aggro/5f - 0.2f;
+        _vignette.intensity.value = aggro / 5f - 0.2f;
 
         if (isPlayerLooking) HandleAggressionIncrease();
 
-        if (aggro == 5) GameManager.Instance.ShowGameOver();
-       
+        if (aggro == 5)
+        {
+            MenuUIManager.Instance.ShowGameOver();
+        }
     }
 
-    //Teleport and activate demon
     IEnumerator Teleport()
     {
         Debug.Log("Demon teleportation coroutine started");
 
         while (true)
         {
-            yield return new WaitForSecondsRealtime(tpDelay / aggro);
+            // Pause coroutine during game pause
+            while (MenuUIManager.Instance.isPaused)
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(tpDelay / Mathf.Max(aggro, 1));
 
             if (!isPlayerLooking)
             {
                 foreach (Transform tpPoint in tpPoints)
                 {
                     Vector3 playerPos = player.transform.position;
-
-            // Wait until the game is not paused
-            while (GameManager.Instance.IsPaused)
-            {
-                yield return null; // Pause the coroutine execution
-            }
-                    //Check distance to ensure it's within proximity
                     Vector3 dirToPoint = (tpPoint.position - playerPos).normalized;
                     float distToPoint = Vector3.Distance(playerPos, tpPoint.position);
-
-                    //Check angle to ensure it's outside player's FOV
                     float angleToPoint = Vector3.Angle(player.transform.forward, dirToPoint);
 
-                    if (distToPoint <= maxTPdistance && angleToPoint > 90f / 2f)
+                    if (distToPoint <= maxTPdistance && angleToPoint > 45f)
                     {
-                        this.gameObject.transform.position = tpPoint.position;
+                        transform.position = tpPoint.position;
                         Debug.Log($"Demon teleported to: {tpPoint.position}");
-                        break; 
+                        break;
                     }
                 }
             }
         }
     }
 
-
-
-
-    private float increaseTimer = 0f;
     private void HandleAggressionIncrease()
     {
         increaseTimer += Time.deltaTime;
@@ -92,14 +86,10 @@ public class DemonScript : MonoBehaviour
                 aggro++;
                 Debug.Log("Aggression increased. Level: " + aggro);
             }
-            else
-            {
-                Debug.Log("Game Over");
-            }
             increaseTimer = 0f;
         }
     }
-    private float decreaseTimer = 0f;
+
     public void HandleAggressionDecrease()
     {
         decreaseTimer += Time.deltaTime;
@@ -110,12 +100,7 @@ public class DemonScript : MonoBehaviour
                 aggro--;
                 Debug.Log("Aggression decreased. Level: " + aggro);
             }
-            else
-            {
-                Debug.Log("Aggression is already at minimum.");
-            }
             decreaseTimer = 0f;
         }
     }
 }
-

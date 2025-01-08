@@ -41,9 +41,9 @@ public class Inventory : MonoBehaviour
                     itemIcon.sprite = item.icon;
                     itemIcon.preserveAspect = true;
 
-                    newItem.transform.SetParent(slot.transform, false);
-                    newItem.transform.localPosition = Vector3.zero;
-                    newItem.transform.localScale = Vector3.one;
+                    itemIcon.transform.SetParent(slot.transform, false);
+                    itemIcon.transform.localPosition = Vector3.zero;
+                    itemIcon.transform.localScale = new Vector3(8, 8, 8);
 
                     Debug.Log($"Assigned sprite to slot");
 

@@ -147,8 +147,4 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Raycast did not hit anything.");
         }
     }
-    private void Hide()
-    {
-
-    }
 }

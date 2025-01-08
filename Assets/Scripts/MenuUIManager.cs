@@ -30,6 +30,7 @@ public class MenuUIManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         gameOverMenu.SetActive(false);
+        inventorySlots.SetActive(true);
         isPaused = false;
         isGameOver = false;
     }
@@ -62,7 +63,7 @@ public class MenuUIManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
 
-        inventorySlots.SetActive(true );
+        inventorySlots.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -76,6 +77,7 @@ public class MenuUIManager : MonoBehaviour
         Time.timeScale = 0f;
         isGameOver = true;
 
+        inventorySlots.SetActive(false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         AudioManager.Instance?.Stop("StartingAmbaince");

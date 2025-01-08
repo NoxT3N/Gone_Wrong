@@ -19,74 +19,25 @@ public class DemonScript : MonoBehaviour
     [SerializeField] private VolumeProfile postProfileMain;    
 
     private Vignette _vignette;
-    private int lookCount = 0; // Track how many times the player looks at the demon and the number of looks before a game over
-    private const int maxLooks = 5;
-    private bool hasLooked = false;
-
-    //Vignette settings
-    private float minIntensity = 0.0f;
-    private float maxIntensity = 1.0f;
-    private float intensityStep = 0.15f;
 
     void Start()
     {
-        StartCoroutine(Teleport());    
+        StartCoroutine(Teleport());
 
         postProcessingVolume.profile = postProfileMain;
-        if (!postProcessingVolume.profile.TryGet(out _vignette))
-        {
-            Debug.LogError("Vignette not found in the Volume Profile.");
-        }
-        else
-        {
-            _vignette.intensity.value = minIntensity;
-        }
+        postProcessingVolume.profile.TryGet(out _vignette);
     }
 
     void Update()
     {
-        if (PauseMenu.isPaused)
-            return;
+        if (GameManager.Instance.IsPaused) return;
 
-        //_vignette.intensity.value = aggro/5f - 0.2f;
-        if (isPlayerLooking && !hasLooked)
-        {
-            HandleAggressionIncrease();
-            HandleLookCount();
-            UpdateVignette();
-            hasLooked = true;
-        }
-        else if (!isPlayerLooking) 
-        {
-            hasLooked = false;
-        }
-    }
+        _vignette.intensity.value = aggro/5f - 0.2f;
 
-    private void UpdateVignette()
-    {
-        if (_vignette != null)
-        {
-            _vignette.intensity.value = Mathf.Clamp(_vignette.intensity.value + intensityStep, minIntensity, maxIntensity);
-        }
-    }
+        if (isPlayerLooking) HandleAggressionIncrease();
 
-    private void HandleLookCount() 
-    {
-        if (isPlayerLooking) 
-        {
-            lookCount++;
-            if (lookCount > maxLooks)//triggers game over
-            {
-                FindObjectOfType<PauseMenu>().ShowGameOver();
-                Debug.Log("Player looked at the demon too many times");
-            }
-            else 
-            {
-                Debug.Log($"Player has looked at the demon {lookCount} times.");
-            }
-
-            //isPlayerLooking = false;
-        }
+        if (aggro == 5) GameManager.Instance.ShowGameOver();
+       
     }
 
     //Teleport and activate demon
@@ -105,7 +56,7 @@ public class DemonScript : MonoBehaviour
                     Vector3 playerPos = player.transform.position;
 
             // Wait until the game is not paused
-            while (PauseMenu.isPaused)
+            while (GameManager.Instance.IsPaused)
             {
                 yield return null; // Pause the coroutine execution
             }
@@ -158,6 +109,10 @@ public class DemonScript : MonoBehaviour
             {
                 aggro--;
                 Debug.Log("Aggression decreased. Level: " + aggro);
+            }
+            else
+            {
+                Debug.Log("Aggression is already at minimum.");
             }
             decreaseTimer = 0f;
         }

@@ -5865,6 +5865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1651939080}
   demon: {fileID: 767521806}
+  pauseMenu: {fileID: 670588196}
+  gameOverMenu: {fileID: 415474284}
   interactionDistance: 2
 --- !u!1 &188028598 stripped
 GameObject:
@@ -9252,8 +9254,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.80305004, y: 0.9610506, z: 0.75413275}
+  m_Center: {x: -0.09847499, y: -0.019474948, z: -0.00903787}
 --- !u!114 &385246386
 MonoBehaviour:
   m_ObjectHideFlags: 0
